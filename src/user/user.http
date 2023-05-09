@@ -1,0 +1,43 @@
+### FIND ALL USER
+@url = http://localhost:3000
+
+GET {{url}}/user
+Content-Type: application/json
+
+
+### Create a USER
+
+POST {{url}}/user
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin",
+    "firstName": "Mr",
+    "is_super_admin": true,
+    "lastName": "Admin"
+}
+
+### LOGIN
+
+# @name login
+
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+### SET TOKEN VARIABLE
+
+@token = {{login.response.body.$.access_token}}
+### Update a USER
+PATCH {{url}}/user/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "is_super_admin": false,
+    "roleId": 1
+}

@@ -1,0 +1,39 @@
+### Login
+
+@url = http://localhost:3000
+
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+###
+@token = {{login.response.body.$.access_token}}
+
+### Create Role
+POST {{url}}/policy
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "roleId": 1,
+    "resourcesId": 3
+}
+
+### Update Policy
+PATCH {{url}}/policy/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "roleId": 1,
+    "resourceId": 4
+}
+
+### GET ALL Policy
+
+GET {{url}}/policy
+Content-Type: application/json

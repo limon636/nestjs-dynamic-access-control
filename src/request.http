@@ -1,0 +1,22 @@
+### GET USERS
+
+GET http://localhost:3000/user
+Content-Type: application/json
+
+### Login
+
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+### 
+@token = {{login.request.body.$.access_token}}
+
+
+###
+

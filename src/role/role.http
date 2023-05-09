@@ -1,0 +1,23 @@
+### Login
+
+@url = http://localhost:3000
+
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+###
+@token = {{login.response.body.$.access_token}}
+
+### Create Role
+POST {{url}}/role
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "super admin"
+}
