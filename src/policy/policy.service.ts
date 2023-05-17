@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePolicyDto } from './dto/create-policy.dto';
-import { UpdatePolicyDto } from './dto/update-policy.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Policy } from './entities/policy.entity';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { CreatePolicyDto } from "./dto/create-policy.dto";
+import { UpdatePolicyDto } from "./dto/update-policy.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Policy } from "./entities/policy.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class PolicyService {
-  constructor(@InjectRepository(Policy) private readonly policyRepository: Repository<Policy>){}
+  constructor(
+    @InjectRepository(Policy)
+    private readonly policyRepository: Repository<Policy>
+  ) {}
 
   create(createPolicyDto: CreatePolicyDto) {
     return this.policyRepository.save(createPolicyDto);
@@ -18,11 +21,14 @@ export class PolicyService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} policy`;
+    return this.policyRepository.findOneBy({ id });
   }
-  
+
   findPolicy(roleId: number, resId: number): Promise<Policy | undefined> {
-    return this.policyRepository.findOneBy({roleId: roleId, resourceId: resId});
+    return this.policyRepository.findOneBy({
+      roleId: roleId,
+      resourceId: resId,
+    });
   }
 
   update(id: number, updatePolicyDto: UpdatePolicyDto) {
@@ -30,6 +36,6 @@ export class PolicyService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} policy`;
+    return this.policyRepository.delete(id);
   }
 }

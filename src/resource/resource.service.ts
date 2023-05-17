@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { CreateResourceDto } from './dto/create-resource.dto';
-import { UpdateResourceDto } from './dto/update-resource.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Resource } from './entities/resource.entity';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { CreateResourceDto } from "./dto/create-resource.dto";
+import { UpdateResourceDto } from "./dto/update-resource.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Resource } from "./entities/resource.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class ResourceService {
-  constructor(@InjectRepository(Resource) private readonly resourceRepository: Repository<Resource>){}
+  constructor(
+    @InjectRepository(Resource)
+    private readonly resourceRepository: Repository<Resource>
+  ) {}
 
   create(createResourceDto: CreateResourceDto) {
     return this.resourceRepository.save(createResourceDto);
@@ -18,18 +21,18 @@ export class ResourceService {
   }
 
   findOne(id: number) {
-    return this.resourceRepository.findOneBy({id});
+    return this.resourceRepository.findOneBy({ id });
   }
-  
+
   findResource(policy) {
     return this.resourceRepository.findOneBy(policy);
   }
 
   update(id: number, updateResourceDto: UpdateResourceDto) {
-    return `This action updates a #${id} resource`;
+    return this.resourceRepository.update(id, updateResourceDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} resource`;
+    return this.resourceRepository.delete(id);
   }
 }

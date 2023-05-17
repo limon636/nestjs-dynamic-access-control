@@ -1,21 +1,27 @@
 import { IsUnique } from "src/user/IsUnique";
 import { IsEmpty, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateUserDto {
+  @ApiProperty()
+  @IsUnique()
+  username: string;
 
-    @IsUnique()
-    username: string;
+  @ApiProperty()
+  @IsString()
+  password: string;
 
-    @IsString()
-    password: string;
+  @ApiProperty()
+  @IsString()
+  firstName: string;
 
-    @IsString()
-    firstName: string;
+  @ApiProperty()
+  lastName: string;
 
-    lastName: string;
+  @ApiProperty()
+  roleId: number;
 
-    roleId: number;
-    
-    @IsEmpty()
-    isActive: boolean;
+  @ApiProperty()
+  @IsEmpty()
+  isActive: boolean;
 }
